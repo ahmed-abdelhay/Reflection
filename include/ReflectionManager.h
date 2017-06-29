@@ -4,6 +4,8 @@
 #include "Metadata.h"
 #include "MetadataCreator.h"
 
+// this clsas contains helper functions to use
+// the framework with ease
 class ReflectionManager {
  public:
   template <typename T>

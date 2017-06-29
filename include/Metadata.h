@@ -5,6 +5,9 @@
 #include "Member.h"
 #include "Method.h"
 
+// class to represent metadata of a certian class
+// the metadata is the class name, size, pointer to the meta data of the
+// class parent and a list of the registered methods and members
 class Metadata {
  public:
   Metadata(const char* _name, size_t _size, const Metadata* _parent = nullptr,

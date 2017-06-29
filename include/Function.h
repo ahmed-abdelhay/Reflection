@@ -9,8 +9,9 @@ class FunctionBase {
   virtual ~FunctionBase() = default;
 };
 
+// the Function is represented as mem_fn
 template <typename ReturnType, typename Type, typename... Params>
-class Function : public FunctionBase {
+class Function final : public FunctionBase {
   using FunctionType = std::_Mem_fn<ReturnType (Type::*)(Params...)>;
 
  public:

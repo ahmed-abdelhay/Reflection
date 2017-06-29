@@ -4,6 +4,9 @@
 #include <memory>
 #include "Function.h"
 
+// class to represent registered method in a given class
+// it stores the function name and a pointer to the function
+// and the ability to call the function through the call<returnType>()
 class Method {
  public:
   Method(const char* _name) : m_name(_name) {}
@@ -17,7 +20,7 @@ class Method {
   }
 
   template <typename ReturnType, typename Type, typename... Params>
-  ReturnType call(Type& _object, Params... _params) const{
+  ReturnType call(Type& _object, Params... _params) const {
     if (auto function =
             std::dynamic_pointer_cast<Function<ReturnType, Type, Params...>>(
                 m_function))

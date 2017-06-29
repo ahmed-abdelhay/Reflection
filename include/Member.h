@@ -1,5 +1,6 @@
 #pragma once
 
+// clsas to represent registered member variables of a class
 class Member {
  public:
   constexpr Member(const char* _name, size_t _offset)

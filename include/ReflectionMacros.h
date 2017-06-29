@@ -3,6 +3,8 @@
 #include "MetaProgramming.h"
 #include "MetadataCreator.h"
 
+// macros to facilitate the member and methods registerations
+
 #define INIT_METADATA(className)                                       \
   static auto initMetadata() {                                         \
     static bool firstTime = true;                                      \
@@ -28,6 +30,8 @@
     return MetadataCreator<Self>::get();                               \
   }
 
+// to register and generate a metadata for polymorphic class
+// call this macro at the beginning og the class or the struct
 #define REFLECT_POLYMORPHIC_CLASS(className, parentName) \
  public:                                                 \
   using Self = className;                                \
@@ -39,6 +43,8 @@
                                                          \
  private:
 
+// to register and generate a metadata for non polymorphic class
+// call this macro at the beginning og the class or the struct
 #define REFLECT_CLASS(className)           \
  public:                                   \
   using Self = className;                  \
@@ -50,6 +56,9 @@
                                            \
  private:
 
+// to register memebres or properties use this format
+// start first with PROPERTIES_BEGIN
+// then call PROPERTY, then PROPERTY_END
 #define PROPERTIES_BEGIN           \
  public:                           \
   static void defineProperties() { \
@@ -62,6 +71,9 @@
 
 #define PROPERTIES_END }
 
+// to register functions or methods use this format
+// start first with METHODS_BEGIN
+// then call METHOD, then METHODS_END
 #define METHODS_BEGIN           \
  public:                        \
   static void defineMethods() { \
