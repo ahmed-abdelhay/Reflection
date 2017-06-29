@@ -14,8 +14,11 @@ int main() {
     std::cout << member.getOffset() << std::endl;
   }
 
-  for (auto member : ReflectionManager::getMetadata<Triangle>()->getMethods()) {
-    std::cout << member.getName() << std::endl;
+  Triangle t;
+  for (auto& method :
+       ReflectionManager::getMetadata<Triangle>()->getMethods()) {
+    std::cout << method.getName() << std::endl;
+    method.call<void>(t);
   }
   return 0;
 }

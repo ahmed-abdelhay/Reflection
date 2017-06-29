@@ -67,9 +67,13 @@
   static void defineMethods() { \
     auto metadata = MetadataCreator<Self>::get();
 
-#define METHOD(methodName) \
-  metadata->addMethod(         \
-      {#methodName,
+#define METHOD(methodName)                              \
+  {                                                     \
+    Method method{#methodName};                         \
+    method.setFunction(std::mem_fn(&Self::methodName)); \
+    metadata->addMethod(method);                        \
+  }
+
 #define METHODS_END \
   }                 \
                     \

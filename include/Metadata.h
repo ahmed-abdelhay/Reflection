@@ -1,9 +1,7 @@
 #pragma once
 
-#include <cstddef>
 #include <initializer_list>
 #include <vector>
-#include <iostream>
 #include "Member.h"
 #include "Method.h"
 
