@@ -12,10 +12,12 @@ class Triangle : public Shape {
 
   METHODS_BEGIN
   METHOD(draw)
+  METHOD(draw2)
   METHODS_END
 
  public:
   void draw() { std::cout << "Triangle::draw()" << std::endl; }
+  void draw2() { std::cout << "Triangle::draw2()" << std::endl; }
 
   int length;
 };

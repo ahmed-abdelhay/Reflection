@@ -14,6 +14,13 @@ class ReflectionManager {
   }
 
   template <typename T>
+  static auto getMetadata(T _object) {
+    if constexpr(std::is_pointer<T>::value) return _object->getMetadata();
+    else
+      return _object.getMetadata();
+  }
+
+  template <typename T>
   static auto getClassName() {
     return MetadataCreator<remove_qualifiers_t<T>>::get()->getName();
   }
