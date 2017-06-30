@@ -9,7 +9,8 @@ int main() {
   Triangle t;
   Shape* shape = new Triangle();
 
-  for (auto& method : ReflectionManager::getMetadata(shape)->getMethods()) {
+  ReflectionManager::getMetadata<Triangle>();
+  for (auto& method : ReflectionManager::getInstance().getMetadataByName("Triangle")->getMethods()) {
     std::cout << method.getName() << std::endl;
     method.call<void>(t);
   }

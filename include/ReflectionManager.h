@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <unordered_map>
+
 #include "MetaProgramming.h"
 #include "Metadata.h"
 #include "MetadataCreator.h"
@@ -8,6 +11,24 @@
 // the framework with ease
 class ReflectionManager {
  public:
+  void registerType(const char* _name, Metadata* _metadata) {
+    m_typeMap[_name] = _metadata;
+  }
+
+  Metadata* getMetadataByName(const char* _name) {
+    if (m_typeMap.find(_name) != m_typeMap.end()) return m_typeMap[_name];
+    return nullptr;
+  }
+
+  Metadata* getMetadataByName(const std::string& _name) const {
+    return getMetadataByName(_name.c_str());
+  }
+
+  static ReflectionManager& getInstance() {
+    static ReflectionManager manager;
+    return manager;
+  }
+
   template <typename T>
   static auto getMetadata() {
     return MetadataCreator<remove_qualifiers_t<T>>::get();
@@ -15,7 +36,8 @@ class ReflectionManager {
 
   template <typename T>
   static auto getMetadata(T _object) {
-    if constexpr(std::is_pointer<T>::value) return _object->getMetadata();
+    if
+      constexpr(std::is_pointer<T>::value) return _object->getMetadata();
     else
       return _object.getMetadata();
   }
@@ -68,4 +90,7 @@ class ReflectionManager {
       return static_cast<CastToType>(_object);
     return nullptr;
   }
+
+ private:
+  std::unordered_map<const char*, Metadata*> m_typeMap;
 };

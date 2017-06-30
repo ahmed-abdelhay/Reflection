@@ -14,6 +14,8 @@
     }                                                                  \
     call_defineProperties<Self, has_defineProperties_v<Self>>::call(); \
     call_defineMethods<Self, has_defineMethods_v<Self>>::call();       \
+    ReflectionManager::getInstance().registerType(                     \
+        #className, MetadataCreator<Self>::get());                     \
     return MetadataCreator<Self>::get();                               \
   }
 
@@ -27,6 +29,8 @@
     }                                                                  \
     call_defineProperties<Self, has_defineProperties_v<Self>>::call(); \
     call_defineMethods<Self, has_defineMethods_v<Self>>::call();       \
+    ReflectionManager::getInstance().registerType(                     \
+        #className, MetadataCreator<Self>::get());                     \
     return MetadataCreator<Self>::get();                               \
   }
 
