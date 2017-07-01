@@ -26,14 +26,13 @@ using remove_qualifiers_t = std::decay_t<T>;
 
 // this is a heler class to be used to call a certain function
 // only if it exists in the input class
-#define CALL_FUNCTION(functionName)           \
-  template <typename T, bool has_function>    \
-  struct call_##functionName {                \
-    static void call() { T::functionName(); } \
-  };                                          \
-  template <typename T>                       \
-  struct call_##functionName<T, false> {      \
-    static void call() {}                     \
+#define CALL_FUNCTION(functionName)                \
+  template <typename T, bool has_function>         \
+  struct call_##functionName {                     \
+    static void call() {                           \
+      if                                           \
+        constexpr(has_function) T::functionName(); \
+    }                                              \
   };
 
 HAS_FUNCTION(defineProperties);

@@ -87,9 +87,9 @@
     Member member{                                                            \
         #propertyName,                                                        \
         (size_t)((char*)&(((Self*)nullptr)->propertyName) - (char*)nullptr)}; \
-    __VA_ARGS__ \
-metadata->addMember(member);\
-}
+    __VA_ARGS__                                                               \
+    metadata->addMember(member);                                              \
+  }
 
 #define PROPERTIES_END }
 
