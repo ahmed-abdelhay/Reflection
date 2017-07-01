@@ -68,10 +68,28 @@
   static void defineProperties() { \
     auto metadata = MetadataCreator<Self>::get();
 
-#define PROPERTY(propertyName) \
-  metadata->addMember(         \
-      {#propertyName,          \
-       (size_t)((char*)&(((Self*)nullptr)->propertyName) - (char*)nullptr)});
+#define GETTER(methodName)                              \
+  {                                                     \
+    Method method{#methodName};                         \
+    method.setFunction(std::mem_fn(&Self::methodName)); \
+    member.setGetterMethod(method);                     \
+  }
+
+#define SETTER(methodName)                              \
+  {                                                     \
+    Method method{#methodName};                         \
+    method.setFunction(std::mem_fn(&Self::methodName)); \
+    member.setSetterMethod(method);                     \
+  }
+
+#define PROPERTY(propertyName, ...)                                           \
+  {                                                                           \
+    Member member{                                                            \
+        #propertyName,                                                        \
+        (size_t)((char*)&(((Self*)nullptr)->propertyName) - (char*)nullptr)}; \
+    __VA_ARGS__ \
+metadata->addMember(member);\
+}
 
 #define PROPERTIES_END }
 

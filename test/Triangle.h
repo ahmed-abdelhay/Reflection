@@ -7,7 +7,7 @@ class Triangle : public Shape {
   REFLECT_POLYMORPHIC_CLASS(Triangle, Shape);
 
   PROPERTIES_BEGIN
-  PROPERTY(length)
+  PROPERTY(length, GETTER(draw))
   PROPERTIES_END
 
   METHODS_BEGIN
