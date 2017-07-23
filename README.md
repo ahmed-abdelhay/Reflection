@@ -107,3 +107,11 @@ for (auto& member : metadata->getMembers()) {
   member.getGetterMethod()->call<void>(t);
 }
 ```
+
+you can also query a certain propery or method by name at run time 
+
+```cpp
+  auto member = ReflectionManager::getInstance()
+                    .getMetadataByName("Triangle")
+                    ->getMember("length"); 
+```

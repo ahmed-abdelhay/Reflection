@@ -24,6 +24,11 @@ int main() {
     member.getGetterMethod()->call<void>(t);
   }
 
+  auto member = ReflectionManager::getInstance()
+                    .getMetadataByName("Triangle")
+                    ->getMember("length");
+  std::cout << member.getName() << std::endl;
+
   delete shape;
   return 0;
 }

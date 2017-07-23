@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstring>
 #include <initializer_list>
 #include <vector>
 #include "Member.h"
@@ -21,6 +22,26 @@ class Metadata {
 
   void addMember(Member _member) { m_members.push_back(_member); }
   void addMethod(Method _method) { m_methods.push_back(_method); }
+
+  const Member& getMember(const std::string& _memberName) {
+    auto itr = std::find_if(
+        m_members.begin(), m_members.end(), [&](const auto& member) {
+          return strcmp(_memberName.c_str(), member.getName()) == 0;
+        });
+    if (itr == m_members.end())
+      throw std::invalid_argument("member name not found");
+    return *itr;
+  }
+
+  const Method& getMethod(const std::string& _methodName) {
+    auto itr = std::find_if(
+        m_methods.begin(), m_methods.end(), [&](const auto& method) {
+          return strcmp(_methodName.c_str(), method.getName()) == 0;
+        });
+    if (itr == m_methods.end())
+      throw std::invalid_argument("method name not found");
+    return *itr;
+  }
 
   const std::vector<Member>& getMembers() const { return m_members; }
   const std::vector<Method>& getMethods() const { return m_methods; }
