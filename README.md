@@ -1,7 +1,7 @@
 # Reflection
 Run time reflection library for c++17
 
-#Documentation:
+### Documentation:
 
 to use the library in a class 
 
@@ -22,7 +22,7 @@ struct Triangle : public Shape{
 
 this will make you able to request the class size and name at run time 
 
-#Properties:
+### Properties:
 to add properties (member) into the class use 
 PROPERTIES_BEGIN macro and PROPERTIES_END macro and add as many properties in 
 between them as you wish using the PROPERTY macro
@@ -51,7 +51,7 @@ strcut Shape {
 };
 ```
 
-#Methods:
+### Methods:
 you can also register methods using the METHODS_BEGIN , METHOD and METHODS_END macros 
 just like in the case of properties.
 
@@ -84,7 +84,7 @@ strcut Shape {
 };
 ```
 
-#using the library:
+### using the library:
 
 to query the metadata info of the object you can use either the reflection 
 manager interface through the template function getMetadata or using a 
