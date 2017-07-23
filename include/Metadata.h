@@ -23,21 +23,29 @@ class Metadata {
   void addMember(Member _member) { m_members.push_back(_member); }
   void addMethod(Method _method) { m_methods.push_back(_method); }
 
-  const Member& getMember(const std::string& _memberName) {
-    auto itr = std::find_if(
-        m_members.begin(), m_members.end(), [&](const auto& member) {
-          return strcmp(_memberName.c_str(), member.getName()) == 0;
-        });
+  bool hasMember(const std::string& _memberName) const {
+    return findInRangeByName(m_members.begin(), m_members.end(),
+                             _memberName.c_str()) != m_members.end();
+  }
+
+  bool hasMethod(const std::string& _methodName) const {
+    return findInRangeByName(m_methods.begin(), m_methods.end(),
+                             _methodName.c_str()) != m_methods.end();
+  }
+
+  // throws invalid_argument exception in case the member name is not found
+  const Member& getMember(const std::string& _memberName) const {
+    auto itr = findInRangeByName(m_members.begin(), m_members.end(),
+                                 _memberName.c_str());
     if (itr == m_members.end())
       throw std::invalid_argument("member name not found");
     return *itr;
   }
 
-  const Method& getMethod(const std::string& _methodName) {
-    auto itr = std::find_if(
-        m_methods.begin(), m_methods.end(), [&](const auto& method) {
-          return strcmp(_methodName.c_str(), method.getName()) == 0;
-        });
+  // throws invalid_argument exception in case the method name is not found
+  const Method& getMethod(const std::string& _methodName) const {
+    auto itr = findInRangeByName(m_methods.begin(), m_methods.end(),
+                                 _methodName.c_str());
     if (itr == m_methods.end())
       throw std::invalid_argument("method name not found");
     return *itr;
@@ -50,6 +58,16 @@ class Metadata {
   size_t getSize() const { return m_size; }
 
  private:
+  // search in a range defined by _begin and _end for item that
+  // has a name == _nameToFind
+  template <typename ItrType>
+  ItrType findInRangeByName(const ItrType& _begin, const ItrType& _end,
+                            const char* _nameToFind) const {
+    return std::find_if(_begin, _end, [&](const auto& var) {
+      return strcmp(_nameToFind, var.getName()) == 0;
+    });
+  }
+
   const char* m_name;
   size_t m_size;
   const Metadata* m_parent;
